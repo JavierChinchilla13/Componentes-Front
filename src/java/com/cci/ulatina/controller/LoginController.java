@@ -13,4 +13,14 @@ public class LoginController {
     
     //HOLA GENTEEEEE
     private int hola;
+
+    public int getHola() {
+        return hola;
+    }
+
+    public void setHola(int hola) {
+        this.hola = hola;
+    }
+    
+    
 }
