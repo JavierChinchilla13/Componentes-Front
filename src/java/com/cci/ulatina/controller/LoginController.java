@@ -13,7 +13,16 @@ public class LoginController {
     
     //HOLA GENTEEEEE
     private int hola;
+    private int adios;
 
+    public int getAdios() {
+        return adios;
+    }
+
+    public void setAdios(int adios) {
+        this.adios = adios;
+    }
+    
     public int getHola() {
         return hola;
     }
