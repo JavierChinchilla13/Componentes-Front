@@ -12,5 +12,5 @@ package com.cci.ulatina.controller;
 public class LoginController {
     
     //HOLA GENTEEEEE
-    
+    private int hola;
 }
