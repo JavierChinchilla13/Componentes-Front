@@ -11,4 +11,14 @@ package com.cci.ulatina.controller;
  */
 public class LoginController {
     
+    private String uwu;
+
+    public String getUwu() {
+        return uwu;
+    }
+
+    public void setUwu(String uwu) {
+        this.uwu = uwu;
+    }
+    
 }
