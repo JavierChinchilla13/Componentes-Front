@@ -5,10 +5,13 @@
  */
 package com.cci.ulatina.controller;
 
-/**
- *
- * @author lizan
- */
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+
+@ManagedBean(name = "loginController")
+@SessionScoped
+
 public class LoginController {
     
     //HOLA GENTEEEEE
