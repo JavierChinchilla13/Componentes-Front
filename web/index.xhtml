@@ -1,12 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="centered-text">
+            <h1>Admin Virtual Shop</h1>
+        </div>
+
+        <h:form id="form">
+            <div class="centered-DT">
+                
+                <p:panelGrid columns="1">
+                    
+
+                    <p:growl id="msg" showDetail="true" />
+                    
+                    <p:outputLabel  value="Ingresar" styleClass="login-label"/>
+                    
+                    <p:inputText value="#{loginController.correo}" placeholder="Correo electrónico" />
+                    <p:password value="#{loginController.clave}" placeholder="Contraseña" />
+                    
+                    <p:commandButton value="Continuar" actionListener="#{loginController.login}" update="msg" />
+                    
+                    <p:outputLabel  value="¿Eres nuevo?" styleClass="new-user-label"/>
+                    
+                                    
+                   
+                    
+             
+                    
+                </p:panelGrid>
+                
+                
+            </div>
+            
+        </h:form>
     </h:body>
+
 </html>
 
