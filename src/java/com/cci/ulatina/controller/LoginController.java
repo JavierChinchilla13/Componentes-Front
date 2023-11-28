@@ -12,7 +12,9 @@ import com.cci.manage.*;
 import com.cci.ulatina.servicio.Servicio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "loginController")
 @SessionScoped
@@ -32,7 +34,7 @@ public class LoginController {
             
             
             
-            Empleados empleado = new Empleados();
+            /*Empleados empleado = new Empleados();
             empleado.setApellido("Gay");
             empleado.setCedulaa(1323);
             empleado.setNombre("ARTURO");
@@ -41,10 +43,12 @@ public class LoginController {
             empleado.setVacaciones(123);
             empleado.setId(2);
             EmpleadoService test1 = new EmpleadoService();
-            test1.insertar(test.em, empleado);
+           // test1.insertar(test.em, empleado);*/
             
             test.stopEntityManagerFactory();
             System.out.println("Done");
+            
+            this.redirect("/faces/collaborators.xhtml");
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,7 +71,15 @@ public class LoginController {
         this.clave = clave;
     }
 
-   
+   public void redirect(String rute) {
+        HttpServletRequest request;
+        try {
+            request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath() + rute);
+        } catch (Exception e) {
+
+        }
+    }
     
     
 }
