@@ -48,7 +48,7 @@ public class LoginController {
             test.stopEntityManagerFactory();
             System.out.println("Done");
             
-            this.redirect("/faces/collaborators.xhtml");
+            this.redirect("/faces/collaborator.xhtml");
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
