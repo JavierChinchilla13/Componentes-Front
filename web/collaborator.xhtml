@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xxmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
@@ -16,13 +16,19 @@
 
                 <p:tabMenu activeIndex="#{param.i}">
                     
-                    <p:menuitem value="Index" outcome="index" icon="pi pi-fw pi-calendar">
+                    <p:menuitem value="Collaborators" outcome="collaborator" icon="pi pi-fw pi-calendar">
                         <f:param name="i" value="1"/>
                     </p:menuitem>
 
                 </p:tabMenu>
 
                 <br/>
+                
+                <p:commandButton value="New User " icon="pi pi-plus" actionListener="#{employeeController.openNew}"
+                                 update=":form:manage-user-content" oncomplete="PF('manageUserDialog').show()"
+                                 styleClass="ui-button-success" style="margin: .50rem">
+                    <p:resetInput target=":form:manage-user-content"/>
+                </p:commandButton>
 
 
                 <p:dataTable id="Employees" var="Employee" value="#{employeeController.employees}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
@@ -30,21 +36,146 @@
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Employee List </f:facet>
 
-                    <p:column headerText="Name" sortBy="#{Employee.nombre}" filterBy="#{Employee.nombre}" filterMatchMode="contains">
+                    <p:column headerText="Nombre" sortBy="#{Employee.nombre}" filterBy="#{Employee.nombre}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.nombre}"/>
                     </p:column>
 
-                    <p:column headerText="Lastname" sortBy="#{Employee.apellido}" filterBy="#{Employee.apellido}" filterMatchMode="contains">
+                    <p:column headerText="Apellido" sortBy="#{Employee.apellido}" filterBy="#{Employee.apellido}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.apellido}"/>
                     </p:column>
 
-                    <p:column headerText="Birthday" sortBy="#{Employee.cumpleaños}" filterBy="#{Employee.cumpleaños}" filterMatchMode="contains">
+                    <p:column headerText="Cumpleaños" sortBy="#{Employee.cumpleaños}" filterBy="#{Employee.cumpleaños}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.cumpleaños}"/>
                     </p:column>
+                    
+                    <p:column headerText="Telefono" sortBy="#{Employee.telefono}" filterBy="#{Employee.telefono}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.telefono}"/>
+                    </p:column>
+                    
+                    <p:column headerText="vacaciones" sortBy="#{Employee.vacaciones}" filterBy="#{Employee.vacaciones}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.vacaciones}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Direccion" sortBy="#{Employee.direccion}" filterBy="#{Employee.direccion}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.direccion}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Cedula" sortBy="#{Employee.cedula}" filterBy="#{Employee.cedula}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.cedula}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Correo" sortBy="#{Employee.correo}" filterBy="#{Employee.correo}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.correo}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Password" sortBy="#{Employee.password}" filterBy="#{Employee.password}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.password}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Ingreso" sortBy="#{Employee.fechaIngreso}" filterBy="#{Employee.fechaIngreso}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.fechaIngreso}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Estado" sortBy="#{Employee.estado}" filterBy="#{Employee.estado}" filterMatchMode="contains">
+                        <h:outputText value="#{Employee.estado}"/>
+                    </p:column>
+                    
+                    
 
 
 
                 </p:dataTable>
+                
+                
+                <p:dialog header="User detail" showEffect="fade" modal="true"
+                          widgetVar="manageUserDialog" responsive="true" resizable="true">
+                    <p:outputPanel id="manage-user-content" class="ui-fluid">
+
+                        <p:outputPanel>
+                            
+                            <div class="p-field">
+                                <p:outputLabel for="id">Id</p:outputLabel>
+                                <p:inputText id="id" value="#{employeeController.selectedEmployee.id}"/>
+                            </div>
+                            
+                            <div class="p-field">
+                                <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                                <p:inputText id="nombre" value="#{employeeController.selectedEmployee.nombre}"/>
+                            </div>
+                            <div class="p-field">
+                                <p:outputLabel for="apellido">Apellido</p:outputLabel>
+                                <p:inputText id="apellido" value="#{employeeController.selectedEmployee.apellido}"/>
+                            </div>
+                            
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="cumpleaños" value="Cumpleaños"/>
+                                <p:calendar id="cumpleaños" value="#{employeeController.calendarCumple}"/>
+
+                            </div>
+                            <div class="p-field">
+                                <p:outputLabel for="telefono">Telefono</p:outputLabel>
+                                <p:inputText id="telefono" value="#{employeeController.selectedEmployee.telefono}"/>
+                            </div>
+
+                            <div class="p-field">
+                                <p:outputLabel for="direccion">Direccion</p:outputLabel>
+                                <p:inputText id="direccion" value="#{employeeController.selectedEmployee.direccion}"/>
+                            </div>
+                            
+                            <div class="p-field">
+                                <p:outputLabel for="cedula">Cedula</p:outputLabel>
+                                <p:inputText id="cedula" value="#{employeeController.selectedEmployee.cedula}"/>
+                            </div>
+                            
+                            <div class="p-field">
+                                <p:outputLabel for="correo">Correo</p:outputLabel>
+                                <p:inputText id="correo" value="#{employeeController.selectedEmployee.correo}"/>
+                            </div>
+                            
+                            <div class="p-field">
+                                <p:outputLabel for="password">Password</p:outputLabel>
+                                <p:inputText id="password" value="#{employeeController.selectedEmployee.password}"/>
+                            </div>
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="fechaIngreso" value="Fecha de ingreso"/>
+                                <p:calendar id="fechaIngreso" value="#{employeeController.calendarIngreso}"/>
+
+                            </div>
+
+                            <div class="p-field">
+                                <p:outputLabel for="estado">Estado</p:outputLabel>
+                                <p:selectOneMenu id="estado" value="#{employeeController.selectedEmployee.estado}">
+                                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                                    <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
+                                    <f:selectItem itemLabel="Activo" itemValue="Activo"/> 
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="p-field">
+                                <p:outputLabel for="tipo">Tipo</p:outputLabel>
+                                <p:selectOneMenu id="tipo" value="#{employeeController.selectedEmployee.tipo}">
+                                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                                    <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                                    <f:selectItem itemLabel="Colaborador" itemValue="Colaborador"/> 
+
+                                </p:selectOneMenu>
+                            </div>
+                           
+
+                        </p:outputPanel>
+
+                    </p:outputPanel>
+                    <f:facet name="footer">
+                        <p:commandButton value="Add" icon="pi pi-check"   actionListener="#{employeeController.saveColaborador()}" 
+                                         update="form manage-user-content" style="margin: .25rem" process="manage-user-content @this">
+                            
+                        </p:commandButton>
+
+
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUserDialog').hide()" actionListener="#{employeeController.setEsNuevo(false)}"
+                                         style="margin: .25rem" class="ui-button-secondary"/>
+                    </f:facet>
+
+                </p:dialog>
 
                 
 
