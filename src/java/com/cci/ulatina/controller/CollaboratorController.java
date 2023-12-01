@@ -5,7 +5,6 @@
  */
 package com.cci.ulatina.controller;
 
-
 import com.cci.manage.EmpleadoService;
 import com.cci.manage.Empleados;
 import com.cci.ulatina.servicio.Servicio;
@@ -23,9 +22,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 
-
-
-
 /**
  *
  * @author javi
@@ -33,14 +29,13 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "employeeController")
 @SessionScoped
 public class CollaboratorController implements Serializable {
-    
-     private Empleados em;
+
+    private Empleados em;
     private final EmpleadoService service = new EmpleadoService();
     private Empleados selectedEmployee = new Empleados();
-     private boolean esNuevo = false;
+    private boolean esNuevo = false;
     Servicio test = new Servicio();
-    
-    
+
     public void openNew() {
         this.esNuevo = true;
         this.selectedEmployee = new Empleados();
@@ -77,24 +72,17 @@ public class CollaboratorController implements Serializable {
     public void setTest(Servicio test) {
         this.test = test;
     }
-    
-    
-    
-    
+
     public List<Empleados> getEmployees() {
         try {
-            
-             test.startEntityManagerFactory();
-            
-            
-            
-                
+
+            test.startEntityManagerFactory();
+
             test.stopEntityManagerFactory();
             System.out.println("Done");
-            
+
             return service.listar(test.em);
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Error in retriving th list of employees"));
@@ -103,10 +91,9 @@ public class CollaboratorController implements Serializable {
         List<Empleados> list = new ArrayList<>();
         return list;
     }
-    
-    
+
     public void saveColaborador() throws Exception {
-        
+
         test.startEntityManagerFactory();
 
         boolean flag = true;
@@ -196,27 +183,23 @@ public class CollaboratorController implements Serializable {
         System.out.println("YAAAA");
     }
 
-    public void updateColaborador(int id) throws Exception {
+    public void updateColaborador() throws Exception {
 
         test.startEntityManagerFactory();
 
         boolean flag = true;
 
-        Empleados localizado = test.em.find(Empleados.class, new Integer(id));
-        if (localizado != null) {
-            System.out.println("Se localizo el empleado: " + localizado.getNombre());
-
-            if (this.selectedEmployee.getNombre() == null || this.selectedEmployee.getNombre().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar nombre"));
-                flag = false;
-            }
-            if (this.selectedEmployee.getApellido() == null || this.selectedEmployee.getApellido().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar apellido"));
-                flag = false;
-            }
-            /*if (this.selectedEmployee.getCumpleaños() == null || this.selectedEmployee.getCumpleaños().equals("")) {
+        if (this.selectedEmployee.getNombre() == null || this.selectedEmployee.getNombre().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar nombre"));
+            flag = false;
+        }
+        if (this.selectedEmployee.getApellido() == null || this.selectedEmployee.getApellido().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar apellido"));
+            flag = false;
+        }
+        /*if (this.selectedEmployee.getCumpleaños() == null || this.selectedEmployee.getCumpleaños().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar cumpleaños"));
             flag = false;
@@ -226,79 +209,62 @@ public class CollaboratorController implements Serializable {
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar telefono"));
             flag = false;
         }*/
-            if (this.selectedEmployee.getDireccion() == null || this.selectedEmployee.getDireccion().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar direccion"));
-                flag = false;
-            }
-            if (this.selectedEmployee.getCedula() == null || this.selectedEmployee.getCedula().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar cedula"));
-                flag = false;
-            }
+        if (this.selectedEmployee.getDireccion() == null || this.selectedEmployee.getDireccion().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar direccion"));
+            flag = false;
+        }
+        if (this.selectedEmployee.getCedula() == null || this.selectedEmployee.getCedula().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar cedula"));
+            flag = false;
+        }
 
-            if (this.selectedEmployee.getCorreo() == null || this.selectedEmployee.getCorreo().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar correo"));
-                flag = false;
-            }
+        if (this.selectedEmployee.getCorreo() == null || this.selectedEmployee.getCorreo().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar correo"));
+            flag = false;
+        }
 
-            if (!checkEmail(this.selectedEmployee.getCorreo())) {
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar correo"));
-                flag = false;
-            }
-            if (this.selectedEmployee.getPassword() == null || this.selectedEmployee.getPassword().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar password"));
-                flag = false;
-            }
-            if (checkPassword(this.selectedEmployee.getPassword())) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR: Password format is incorrect", "The password must contain 4 to 8 characters and must contain numbers, lowercase and uppercase letters."));
-                flag = false;
-            }
-            if (this.selectedEmployee.getFechaIngreso() == null || this.selectedEmployee.getFechaIngreso().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar fecha de ingreso"));
-                flag = false;
-            }
-            /*if (this.selectedEmployee.getFechaRetiro() == null || this.selectedEmployee.getFechaRetiro().equals("")) {
+        if (!checkEmail(this.selectedEmployee.getCorreo())) {
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar correo"));
+            flag = false;
+        }
+        if (this.selectedEmployee.getPassword() == null || this.selectedEmployee.getPassword().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar password"));
+            flag = false;
+        }
+        if (checkPassword(this.selectedEmployee.getPassword())) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR: Password format is incorrect", "The password must contain 4 to 8 characters and must contain numbers, lowercase and uppercase letters."));
+            flag = false;
+        }
+        if (this.selectedEmployee.getFechaIngreso() == null || this.selectedEmployee.getFechaIngreso().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar fecha de ingreso"));
+            flag = false;
+        }
+        /*if (this.selectedEmployee.getFechaRetiro() == null || this.selectedEmployee.getFechaRetiro().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar fecha de retiro"));
             flag = false;
         }*/
-            if (this.selectedEmployee.getEstado() == null || this.selectedEmployee.getEstado().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar estado"));
-                flag = false;
-            }
-            if (this.selectedEmployee.getTipo() == null || this.selectedEmployee.getTipo().equals("")) {
-                //ERROR
-                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar tipo"));
-                flag = false;
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        } else {
-            System.out.println("No se encontro profesor");
+        if (this.selectedEmployee.getEstado() == null || this.selectedEmployee.getEstado().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar estado"));
+            flag = false;
+        }
+        if (this.selectedEmployee.getTipo() == null || this.selectedEmployee.getTipo().equals("")) {
+            //ERROR
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar tipo"));
+            flag = false;
         }
 
         if (flag) {
-            localizado.setNombre(this.selectedEmployee.getNombre());
-            localizado.setApellido(this.selectedEmployee.getApellido());
-            localizado.setCumpleaños(this.selectedEmployee.getCumpleaños());
-            localizado.setTelefono(this.selectedEmployee.getTelefono());
-            localizado.setDireccion(this.selectedEmployee.getDireccion());
-            localizado.setCedula(this.selectedEmployee.getCedula());
-            test.em.merge(localizado);
-            
+
+            this.service.modificar(test.em, this.selectedEmployee);
+
             System.out.println("Estoy salvando al usuario");
             //this.service.modificar(test.em, this.selectedEmployee);
             this.esNuevo = false;
@@ -307,44 +273,38 @@ public class CollaboratorController implements Serializable {
             PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
         }
 
+        //test.em.getTransaction().commit();
         test.stopEntityManagerFactory();
         System.out.println("YAAAA");
     }
 
     public void deleteUser(int id) throws Exception {
 
-        boolean flag = true;
-        
+        test.startEntityManagerFactory();
+        test.em = test.entityManagerFactory.createEntityManager();
+        test.em.getTransaction().begin();
+
         Empleados localizado = test.em.find(Empleados.class, new Integer(id));
-			if(localizado != null) {
-				System.out.println("Se localizo el profesor: "+ localizado.getNombre());
-			}
-			else {
-				System.out.println("No se encontro profesor");
-                                
-                                flag = false;
-			}
+        if (localizado != null) {
+            System.out.println("Se localizo el profesor: " + localizado.getNombre());
+        } else {
+            System.out.println("No se encontro profesor");
 
-        if (flag) {
-            
-            
-            
-            localizado.setEstado("Inactivo");
-            
-            test.em.merge(localizado);
-
-            //java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-            
-            //this.service.modificar(test.em, this.selectedEmployee); 
-            //---this.servicioUsuario.listarUsuarios();
-            //this.listaUsuarios.add(selectedEmployee);//para simular       
-            this.esNuevo = false;
-            this.selectedEmployee = new Empleados();
-            PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
         }
 
+        localizado.setEstado("Inactivo");
+
+        test.em.merge(localizado);
+
+        this.esNuevo = false;
+        this.selectedEmployee = new Empleados();
+        PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        test.em.getTransaction().commit();
+        test.stopEntityManagerFactory();
+
     }
-    
+
     public boolean checkEmail(String email) {
         String regex = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(regex);
@@ -358,7 +318,7 @@ public class CollaboratorController implements Serializable {
         Matcher matcher = pattern.matcher(pass);
         return matcher.matches();
     }
-    
+
     public java.util.Date getCalendarCumple() {
         return (java.util.Date) this.selectedEmployee.getCumpleaños();
     }
@@ -368,7 +328,7 @@ public class CollaboratorController implements Serializable {
             this.selectedEmployee.setCumpleaños(new java.sql.Date(fireDate.getTime()));
         }
     }
-    
+
     public java.util.Date getCalendarIngreso() {
         return (java.util.Date) this.selectedEmployee.getFechaIngreso();
     }
@@ -378,7 +338,7 @@ public class CollaboratorController implements Serializable {
             this.selectedEmployee.setFechaIngreso(new java.sql.Date(fireDate.getTime()));
         }
     }
-    
+
     public java.util.Date getCalendarRetiro() {
         return (java.util.Date) this.selectedEmployee.getFechaRetiro();
     }

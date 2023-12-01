@@ -11,7 +11,7 @@
         <h3>Welcome to ManageP-U </h3>
         <p:growl id="message" showDetail="true"/>
         <h:form id="form">
-            
+            <p:growl id="message" showDetail="true"/>
             <div class="card">
 
                 <p:tabMenu activeIndex="#{param.i}">
@@ -25,9 +25,9 @@
                 <br/>
                 
                 <p:commandButton value="New User " icon="pi pi-plus" actionListener="#{employeeController.openNew}"
-                                 update=":form:manage-user-content" oncomplete="PF('manageUserDialog').show()"
+                                 update=":form:manage-user-content1" oncomplete="PF('manageUserDialog1').show()"
                                  styleClass="ui-button-success" style="margin: .50rem">
-                    <p:resetInput target=":form:manage-user-content"/>
+                    <p:resetInput target=":form:manage-user-content1"/>
                 </p:commandButton>
 
 
@@ -93,7 +93,6 @@
 
                 </p:dataTable>
                 
-                
                 <p:dialog  showEffect="fade" modal="true" header="Feedback" 
                            widgetVar="userOptionsDialog" responsive="true">
                     <p:outputPanel id="user-options" class="ui-fluid">
@@ -105,86 +104,91 @@
                                              styleClass="edit-button rounded-button ui-button-success" process="@this">
                                 <p:resetInput target=":form:manage-user-content2"/>
                             </p:commandButton>
+                            
+                             
 
                             <p:commandButton icon="pi pi-times" update="form" styleClass="rounded-button ui-button-danger"
                                              value="Suspend" style="margin: .25rem"
-                                             actionListener="#{employeeController.deleteUser()}">
-                                <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+                                             actionListener="#{employeeController.deleteUser(employeeController.selectedEmployee.id)}">
+                                
                             </p:commandButton>
 
+                        
 
                         </p:outputPanel>
                     </p:outputPanel>
                 </p:dialog>
                 
                 
+                
+                
+                
                 <p:dialog header="User detail" showEffect="fade" modal="true"
-                          widgetVar="manageUserDialog" responsive="true" resizable="true">
-                    <p:outputPanel id="manage-user-content" class="ui-fluid">
+                          widgetVar="manageUserDialog1" responsive="true" resizable="true">
+                    <p:outputPanel id="manage-user-content1" class="ui-fluid">
 
                         <p:outputPanel>
                             
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="id">Id</p:outputLabel>
-                                <p:inputText id="id" value="#{employeeController.selectedEmployee.id}"/>
+                                <p:inputText id="id1" value="#{employeeController.selectedEmployee.id}"/>
                             </div>
                             
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="nombre">Nombre</p:outputLabel>
-                                <p:inputText id="nombre" value="#{employeeController.selectedEmployee.nombre}"/>
+                                <p:inputText id="nombre1" value="#{employeeController.selectedEmployee.nombre}"/>
                             </div>
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="apellido">Apellido</p:outputLabel>
-                                <p:inputText id="apellido" value="#{employeeController.selectedEmployee.apellido}"/>
+                                <p:inputText id="apellido1" value="#{employeeController.selectedEmployee.apellido}"/>
                             </div>
                             
-                            <div class="field col-12 md:col-4">
+                            <div class="field1 col-12 md:col-4">
                                 <p:outputLabel for="cumpleaños" value="Cumpleaños"/>
-                                <p:calendar id="cumpleaños" value="#{employeeController.calendarCumple}"/>
+                                <p:calendar id="cumpleaños1" value="#{employeeController.calendarCumple}"/>
 
                             </div>
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="telefono">Telefono</p:outputLabel>
-                                <p:inputText id="telefono" value="#{employeeController.selectedEmployee.telefono}"/>
+                                <p:inputText id="telefono1" value="#{employeeController.selectedEmployee.telefono}"/>
                             </div>
 
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="direccion">Direccion</p:outputLabel>
-                                <p:inputText id="direccion" value="#{employeeController.selectedEmployee.direccion}"/>
+                                <p:inputText id="direccion1" value="#{employeeController.selectedEmployee.direccion}"/>
                             </div>
                             
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="cedula">Cedula</p:outputLabel>
-                                <p:inputText id="cedula" value="#{employeeController.selectedEmployee.cedula}"/>
+                                <p:inputText id="cedula1" value="#{employeeController.selectedEmployee.cedula}"/>
                             </div>
                             
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="correo">Correo</p:outputLabel>
-                                <p:inputText id="correo" value="#{employeeController.selectedEmployee.correo}"/>
+                                <p:inputText id="correo1" value="#{employeeController.selectedEmployee.correo}"/>
                             </div>
                             
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="password">Password</p:outputLabel>
-                                <p:inputText id="password" value="#{employeeController.selectedEmployee.password}"/>
+                                <p:inputText id="password1" value="#{employeeController.selectedEmployee.password}"/>
                             </div>
-                            <div class="field col-12 md:col-4">
+                            <div class="field1 col-12 md:col-4">
                                 <p:outputLabel for="fechaIngreso" value="Fecha de ingreso"/>
-                                <p:calendar id="fechaIngreso" value="#{employeeController.calendarIngreso}"/>
+                                <p:calendar id="fechaIngreso1" value="#{employeeController.calendarIngreso}"/>
 
                             </div>
                             
-
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="estado">Estado</p:outputLabel>
-                                <p:selectOneMenu id="estado" value="#{employeeController.selectedEmployee.estado}">
+                                <p:selectOneMenu id="estado1" value="#{employeeController.selectedEmployee.estado}">
                                     <f:selectItem itemLabel="Select One" itemValue=""/>
                                     <f:selectItem itemLabel="Inactivo" itemValue="Inactivo"/>
                                     <f:selectItem itemLabel="Activo" itemValue="Activo"/> 
                                 </p:selectOneMenu>
                             </div>
-                            <div class="p-field">
+                            <div class="p-field1">
                                 <p:outputLabel for="tipo">Tipo</p:outputLabel>
-                                <p:selectOneMenu id="tipo" value="#{employeeController.selectedEmployee.tipo}">
+                                <p:selectOneMenu id="tipo1" value="#{employeeController.selectedEmployee.tipo}">
                                     <f:selectItem itemLabel="Select One" itemValue=""/>
                                     <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
                                     <f:selectItem itemLabel="Colaborador" itemValue="Colaborador"/> 
@@ -198,7 +202,7 @@
                     </p:outputPanel>
                     <f:facet name="footer">
                         <p:commandButton value="Add" icon="pi pi-check"   actionListener="#{employeeController.saveColaborador()}" 
-                                         update="form manage-user-content" style="margin: .25rem" process="manage-user-content @this">
+                                         update="form manage-user-content1" style="margin: .25rem" process="manage-user-content1 @this">
                             
                         </p:commandButton>
 
@@ -263,11 +267,7 @@
                                 <p:calendar id="fechaIngreso" value="#{employeeController.calendarIngreso}"/>
 
                             </div>
-                            <div class="field col-12 md:col-4">
-                                <p:outputLabel for="fechaRetiro" value="Fecha de retiro"/>
-                                <p:calendar id="fechaRetiro" value="#{employeeController.calendarRetiro}"/>
-
-                            </div>
+                            
 
                             <div class="p-field">
                                 <p:outputLabel for="estado">Estado</p:outputLabel>
@@ -294,9 +294,9 @@
                     <f:facet name="footer">
 
 
-                        <p:commandButton value="Save" icon="pi pi-check"  actionListener="#{employeeController.selectedEmployee.id}"
+                        <p:commandButton value="Save" icon="pi pi-check"  actionListener="#{employeeController.updateColaborador()}"
                                          update="form manage-user-content2" style="margin: .25rem" process="manage-user-content2 @this">
-                            <p:confirm header="Confirmation" message="Are you sure you want to proceed?" icon="pi pi-exclamation-triangle"/>
+                            
                         </p:commandButton>
 
                         <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUserDialog2').hide()" actionListener="#{employeeController.setEsNuevo(false)}"
