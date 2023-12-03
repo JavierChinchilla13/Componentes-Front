@@ -19,6 +19,9 @@
                     <p:menuitem value="Collaborators" outcome="index" icon="pi pi-fw pi-calendar">
                         <f:param name="i" value="1"/>
                     </p:menuitem>
+                    <p:menuitem value="Projects" icon="pi pi-fw pi-calendar" action="#{employeeController.redireccionar('/faces/projects.xhtml')}">
+                        <f:param name="i" value="2"/>
+                    </p:menuitem>
 
                 </p:tabMenu>
 
