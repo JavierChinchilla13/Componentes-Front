@@ -16,10 +16,13 @@
 
                 <p:tabMenu activeIndex="#{param.i}">
                     
-                    <p:menuitem value="Collaborators" outcome="index" icon="pi pi-fw pi-calendar">
+                    <p:menuitem value="Collaborators" outcome="collaborator" icon="pi pi-fw pi-calendar">
                         <f:param name="i" value="1"/>
                     </p:menuitem>
                     <p:menuitem value="Projects" icon="pi pi-fw pi-calendar" action="#{employeeController.redireccionar('/faces/projects.xhtml')}">
+                        <f:param name="i" value="2"/>
+                    </p:menuitem>
+                    <p:menuitem value="Vacaciones" icon="pi pi-fw pi-calendar" outcome="vacaciones">
                         <f:param name="i" value="2"/>
                     </p:menuitem>
 
@@ -34,7 +37,7 @@
                 </p:commandButton>
 
 
-                <p:dataTable id="Employees" var="Employee" value="#{employeeController.employees}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
+                <p:dataTable id="Employee" var="Employee" value="#{employeeController.employees}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
                              {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Employee List </f:facet>

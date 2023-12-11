@@ -117,12 +117,12 @@ public class CollaboratorController implements Serializable {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar telefono"));
             flag = false;
-        }*/
+        }
         if (this.selectedEmployee.getDireccion() == null || this.selectedEmployee.getDireccion().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar direccion"));
             flag = false;
-        }
+        }*/
         if (this.selectedEmployee.getCedula() == null || this.selectedEmployee.getCedula().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar cedula"));
@@ -209,12 +209,12 @@ public class CollaboratorController implements Serializable {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar telefono"));
             flag = false;
-        }*/
+        }
         if (this.selectedEmployee.getDireccion() == null || this.selectedEmployee.getDireccion().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar direccion"));
             flag = false;
-        }
+        }*/
         if (this.selectedEmployee.getCedula() == null || this.selectedEmployee.getCedula().equals("")) {
             //ERROR
             FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Insertar cedula"));
@@ -287,9 +287,9 @@ public class CollaboratorController implements Serializable {
 
         Empleados localizado = test.em.find(Empleados.class, new Integer(id));
         if (localizado != null) {
-            System.out.println("Se localizo el profesor: " + localizado.getNombre());
+            System.out.println("Se localizo el empleado: " + localizado.getNombre());
         } else {
-            System.out.println("No se encontro profesor");
+            System.out.println("No se encontro empleado");
 
         }
 
@@ -320,7 +320,7 @@ public class CollaboratorController implements Serializable {
         return matcher.matches();
     }
 
-    public java.util.Date getCalendarCumple() {
+    /*public java.util.Date getCalendarCumple() {
         return (java.util.Date) this.selectedEmployee.getCumpleaños();
     }
 
@@ -328,7 +328,7 @@ public class CollaboratorController implements Serializable {
         if (fireDate != null) {
             this.selectedEmployee.setCumpleaños(new java.sql.Date(fireDate.getTime()));
         }
-    }
+    }*/
 
     public java.util.Date getCalendarIngreso() {
         return (java.util.Date) this.selectedEmployee.getFechaIngreso();
@@ -356,5 +356,18 @@ public class CollaboratorController implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().redirect(request.getContextPath() + ruta);
         } catch (Exception e) {
         }
+    }
+    
+    
+    public String idToStrStatus(int id) throws Exception {
+
+        EmpleadoService serv = new EmpleadoService();
+        Empleados test2 = serv.buscarPK(test.em, id);
+        this.esNuevo = false;
+        this.selectedEmployee = new Empleados();
+        String result = (test2.getNombre() + " " + test2.getApellido());
+        PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        return result;
     }
 }
