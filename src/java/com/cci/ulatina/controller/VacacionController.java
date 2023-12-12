@@ -75,23 +75,29 @@ public class VacacionController {
     
     public List<Vacaciones> getVacaciones() {
         try {
-            Empleados p =  new Empleados();
-			p.setId(new Integer("11"));
-			p.setNombre("CCI");
 
             test.startEntityManagerFactory();
+            
+             
+            Empleados localizado = test.em.find(Empleados.class, new Integer(13));
+        if (localizado != null) {
+            System.out.println("Se localizo el empleado: " + localizado.getNombre());
+        } else {
+            System.out.println("No se encontro empleado");
+
+        }
             
                   
 			
 			System.out.println("-----------------------");
                        //testers.findPK1(p);
-                       for(Vacaciones pro:  VacacionesService.findPK1(test.em, p)) {
+                       for(Vacaciones pro:  VacacionesService.findPK1(test.em, localizado)) {
 				System.out.println("Nombre: " + pro.getIdVacaciones());
 			}
             test.stopEntityManagerFactory();
             System.out.println("Done");
 
-            return VacacionesService.findPK1(test.em, p);
+            return VacacionesService.findPK1(test.em, localizado);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,14 +110,18 @@ public class VacacionController {
     
     
     public void saveVacacion() throws Exception {
+        test.startEntityManagerFactory();
         
-        Empleados p = new Empleados();
-            p.setId(new Integer("11"));
-            p.setNombre("CCI");
+         Empleados localizado = test.em.find(Empleados.class, new Integer(13));
+        if (localizado != null) {
+            System.out.println("Se localizo el empleado: " + localizado.getNombre());
+        } else {
+            System.out.println("No se encontro empleado");
+
+        }
             
         
-        vacacionSelected.setPersona(p);
-        test.startEntityManagerFactory();
+        vacacionSelected.setPersona(localizado);
 
         boolean flag = true;
         if (this.vacacionSelected.getFech_Inicio() == null || this.vacacionSelected.getFech_Inicio().equals("")) {
@@ -160,7 +170,8 @@ public class VacacionController {
 
         if (flag) {
 
-
+          
+        
             
             this.sVService.modificar(test.em, this.vacacionSelected);
 
@@ -175,6 +186,34 @@ public class VacacionController {
  
         test.stopEntityManagerFactory();
         System.out.println("YAAAA");
+    }
+    
+    public void removeVacacion(int id) throws Exception {
+
+        test.startEntityManagerFactory();
+        
+        
+        Vacaciones localizado = test.em.find(Vacaciones.class, id);
+			if(localizado != null) {
+				System.out.println("Se localizo el profesor: "+ localizado.getIdVacaciones());
+				
+			}
+			else {
+				System.out.println("No se encontro profesor");
+                                                 
+			}
+             localizado.setEstado("Cancelado");
+            this.sVService.modificar(test.em, localizado);
+
+            System.out.println("Estoy salvando al usuario");
+
+            this.esNuevo = false;
+            this.vacacionSelected = new Vacaciones();
+            PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        
+        test.stopEntityManagerFactory();
+
     }
 
 

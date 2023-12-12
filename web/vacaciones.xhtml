@@ -28,6 +28,10 @@
                     </p:menuitem>
 
                 </p:tabMenu>
+                
+                
+               <h3>Usted tiene #{ employeeController.selectedEmployee.vacaciones}dias  </h3>
+
 
                 <p:commandButton value="Pedir Vacaciones" icon="pi pi-plus" actionListener="#{vacacionController.openNew()}"
                                  update=":form:manage-user-content" oncomplete="PF('manageUserDialog').show()"
@@ -64,6 +68,16 @@
                             <p:resetInput target=":form:approve-deny-vacation"/>
                         </p:commandButton>
                     </p:column>
+                    
+                     <p:column>
+                         <p:commandButton icon="pi pi-times" update="form" styleClass="rounded-button ui-button-danger"
+                                             value="Cancelar" style="margin: .25rem"
+                                             actionListener="#{vacacionController.removeVacacion(Vacacion.idVacaciones)}">
+                                
+                            </p:commandButton>
+                    </p:column>
+                    
+                    
 
                 </p:dataTable>
 
