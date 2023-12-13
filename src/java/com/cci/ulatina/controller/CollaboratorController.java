@@ -7,6 +7,7 @@ package com.cci.ulatina.controller;
 
 import com.cci.manage.EmpleadoService;
 import com.cci.manage.Empleados;
+import com.cci.manage.VacacionesService;
 import com.cci.ulatina.servicio.Servicio;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -369,5 +370,34 @@ public class CollaboratorController implements Serializable {
         PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
 
         return result;
+    }
+    
+    public int Vacaciones (int id) throws Exception {
+
+        test.startEntityManagerFactory();
+        test.em = test.entityManagerFactory.createEntityManager();
+        test.em.getTransaction().begin();
+
+        Empleados localizado = test.em.find(Empleados.class, new Integer(id));
+        if (localizado != null) {
+            System.out.println("Se localizo el empleado: " + localizado.getNombre());
+        } else {
+            System.out.println("No se encontro empleado");
+
+        }
+        VacacionesService v = new VacacionesService ();
+
+        localizado.setVacaciones(v.calculateVacationDays(test.em, id));
+	test.em.merge(localizado);
+        int dias = v.calculateVacationDays(test.em, 13);
+        this.esNuevo = false;
+        this.selectedEmployee = new Empleados();
+        PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        test.em.getTransaction().commit();
+        test.stopEntityManagerFactory();
+        
+        return dias;
+
     }
 }

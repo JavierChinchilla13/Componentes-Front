@@ -163,16 +163,6 @@ public class VacacionController {
      
         test.startEntityManagerFactory();
 
-        boolean flag = true;
-       
-        
-        
-
-        if (flag) {
-
-          
-        
-            
             this.sVService.modificar(test.em, this.vacacionSelected);
 
             System.out.println("Estoy salvando al usuario");
@@ -182,7 +172,7 @@ public class VacacionController {
             
 
             PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
-        }
+        
  
         test.stopEntityManagerFactory();
         System.out.println("YAAAA");
@@ -191,9 +181,35 @@ public class VacacionController {
     public void removeVacacion(int id) throws Exception {
 
         test.startEntityManagerFactory();
+                boolean flag = true;
+                String est = "";
+    
+                Vacaciones localizado1 = test.em.find(Vacaciones.class, id);
+			if(localizado1 != null) {
+				System.out.println("Se localizo el vaca "+ localizado1.getEstado());
+                                
+				est = localizado1.getEstado();
+                                System.out.println(est);
+			}
+			else {
+				System.out.println("No se encontro profesor");
+                                                 
+			}
+                        
+        if ("Aprovado".equals(est)) {
+            //ERROR)
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Vacaciones ya fueron aprovadas"));
+            flag = false;
+        }
+        if ("Denegado".equals(est)) {
+            //ERROR)
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Vacaciones ya fueron denegadas"));
+            flag = false;
+        }
+       
         
-        
-        Vacaciones localizado = test.em.find(Vacaciones.class, id);
+        if (flag) {
+            Vacaciones localizado = test.em.find(Vacaciones.class, id);
 			if(localizado != null) {
 				System.out.println("Se localizo el profesor: "+ localizado.getIdVacaciones());
 				
@@ -211,6 +227,7 @@ public class VacacionController {
             this.vacacionSelected = new Vacaciones();
             PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
 
+        }
         
         test.stopEntityManagerFactory();
 

@@ -30,7 +30,7 @@
                 </p:tabMenu>
                 
                 
-               <h3>Usted tiene #{ employeeController.selectedEmployee.vacaciones}dias  </h3>
+                <h3>Usted tiene #{ employeeController.Vacaciones(13)} dias  </h3>
 
 
                 <p:commandButton value="Pedir Vacaciones" icon="pi pi-plus" actionListener="#{vacacionController.openNew()}"
@@ -135,7 +135,7 @@
                                 <p:selectOneMenu id="estado" value="#{vacacionController.vacacionSelected.estado}">
                                     <f:selectItem itemLabel="Select One" itemValue=""/>
                                     <f:selectItem itemLabel="Aprovar" itemValue="Aprovado"/>
-                                    <f:selectItem itemLabel="Denegar" itemValue="denegado"/> 
+                                    <f:selectItem itemLabel="Denegar" itemValue="Denegado"/> 
 
                                 </p:selectOneMenu>
                             </div>
