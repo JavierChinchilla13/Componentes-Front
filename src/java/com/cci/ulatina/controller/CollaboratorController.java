@@ -7,9 +7,12 @@ package com.cci.ulatina.controller;
 
 import com.cci.manage.EmpleadoService;
 import com.cci.manage.Empleados;
+import com.cci.manage.Vacaciones;
 import com.cci.manage.VacacionesService;
 import com.cci.ulatina.servicio.Servicio;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -385,10 +388,10 @@ public class CollaboratorController implements Serializable {
             System.out.println("No se encontro empleado");
 
         }
-        VacacionesService v = new VacacionesService ();
+        VacacionesService v = new VacacionesService();
 
         localizado.setVacaciones(v.calculateVacationDays(test.em, id));
-	test.em.merge(localizado);
+        test.em.merge(localizado);
         int dias = v.calculateVacationDays(test.em, 13);
         this.esNuevo = false;
         this.selectedEmployee = new Empleados();
@@ -396,8 +399,53 @@ public class CollaboratorController implements Serializable {
 
         test.em.getTransaction().commit();
         test.stopEntityManagerFactory();
-        
+
         return dias;
+
+    }
+
+    public int Vacaciones2(int id) throws Exception {
+
+        test.startEntityManagerFactory();
+        test.em = test.entityManagerFactory.createEntityManager();
+        test.em.getTransaction().begin();
+
+        int totalVacationDays = 0;
+
+        Empleados localizado = test.em.find(Empleados.class, new Integer(id));
+        if (localizado != null) {
+            System.out.println("Se localizo el empleado: " + localizado.getNombre());
+        } else {
+            System.out.println("No se encontro empleado");
+
+        }
+        VacacionesService v = new VacacionesService();
+        //Vacaciones va = new Vacaciones();
+
+        List<Vacaciones> lista = v.findVacacion(test.em, localizado);
+        for (Vacaciones pro : lista) {
+            //System.out.println("Nombre: " + pro.getFech_Inicio());		
+            LocalDate startLocalDate = pro.getFech_Inicio().toLocalDate();
+            LocalDate endLocalDate = pro.getFech_Final().toLocalDate();
+            long days = ChronoUnit.DAYS.between(startLocalDate, endLocalDate);
+            System.out.println("+++++" + days);
+            totalVacationDays += days;
+        }
+        
+        int days = v.calculateVacationDays(test.em, id);
+
+        localizado.setVacaciones(days-totalVacationDays);
+        test.em.merge(localizado);
+        int totalVacaciones= days-totalVacationDays;
+        //int dias = v.calculateVacationDays(test.em, 13);
+        this.esNuevo = false;
+        this.selectedEmployee = new Empleados();
+        PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        test.em.getTransaction().commit();
+        test.stopEntityManagerFactory();
+
+        return totalVacaciones;
 
     }
 }
