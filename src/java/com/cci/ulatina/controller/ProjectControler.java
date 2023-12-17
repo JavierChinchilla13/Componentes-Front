@@ -96,6 +96,32 @@ public class ProjectControler {
             System.out.println("Se salvo el projecto");
 
     }
+    public void deleteProject(int id) throws Exception {
+
+        test.startEntityManagerFactory();
+        test.em = test.entityManagerFactory.createEntityManager();
+        test.em.getTransaction().begin();
+
+        Projecto localizado = test.em.find(Projecto.class, new Integer(id));
+        if (localizado != null) {
+            System.out.println("Se localizo el proyecto: " + localizado.getNombreProyecto());
+        } else {
+            System.out.println("No se encontro empleado");
+
+        }
+
+        localizado.setEstado("Inactivo");
+
+        test.em.merge(localizado);
+
+        this.esNuevo = false;
+        this.selectedProject = new Projecto();
+        PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+
+        test.em.getTransaction().commit();
+        test.stopEntityManagerFactory();
+
+    }
     
     public List<Projecto> getEmployees() {
         try {
