@@ -24,7 +24,7 @@
                     <p:inputText value="#{loginController.correo}" placeholder="Correo electrónico" />
                     <p:password value="#{loginController.clave}" placeholder="Contraseña" />
                     
-                    <p:commandButton value="Continuar" actionListener="#{loginController.login}" update="msg" />
+                    <p:commandButton value="Continuar" actionListener="#{loginController.ingresar()}" update="msg" />
                     
                     <p:outputLabel  value="¿Eres nuevo?" styleClass="new-user-label"/>
                     

@@ -23,75 +23,81 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController {
 
     //Atributos
-    private int contraseña;
-    private int clave;
+    private String correo;
+    private String clave;
     private int telefono;
     private String nombre;
     private String apellido;
     private String tipo;
     private Date cumpleaños;
     private String dirección;
-    
 
     private Empleados selectedUsuario;
 
     public LoginController() {
     }
-    
+
     public void openNew() {
         this.selectedUsuario = new Empleados();
     }
 
-    public void login() {
+    public void ingresar() {
         try {
-
             Servicio test = new Servicio();
-            test.startEntityManagerFactory();
+            EmpleadoService servEmp = new EmpleadoService();
 
-            Empleados empleado = new Empleados();
-            empleado.setApellido("Gay");
+            test.startEntityManagerFactory(); // Inicia el EntityManager
+            String permisos = servEmp.Credenciales(test.em, this.correo, this.clave);
+            test.stopEntityManagerFactory(); // Detiene el EntityManager después de su uso
 
-            empleado.setNombre("ARTURO");
+            boolean flag = true;
+            if (this.getCorreo() == null || this.getCorreo().equals("")) {
+                //ERROR
+                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "The Email is empty"));
+                flag = false;
+            }
+            if (this.getClave() == null || this.getClave().equals("")) {
+                //ERROR
+                FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "The password is empty"));
+                flag = false;
+            }
 
-            empleado.setTelefono(12345);
-            empleado.setVacaciones(123);
-            empleado.setId(2);
-            EmpleadoService test1 = new EmpleadoService();
-            test1.insertar(test.em, empleado);
-
-            test.stopEntityManagerFactory();
-            System.out.println("Done");
-
-            this.redirect("/faces/collaborator.xhtml");
-        } catch (Exception ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            // Aquí puedes manejar el valor de 'permisos' según tu lógica de frontend
+            if (permisos.equals(false)) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
+            } else if (permisos.equals("Administrador")) {
+                this.redirect("/faces/collaborator.xhtml");
+            } else {
+                this.redirect("/faces/projects.xhtml");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejo adecuado del error según la lógica de tu aplicación
         }
-
     }
 
     public void saveTrabajador() throws Exception {
         Servicio test = new Servicio();
-        TrabajadorService u = new TrabajadorService();
-        
+        EmpleadoService u = new EmpleadoService();
+
         test.startEntityManagerFactory();
-        u.insertar(test.em,selectedUsuario);
+        u.insertar(test.em, selectedUsuario);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Trabajador agregado"));
 
     }
 
-    public int getContraseña() {
-        return contraseña;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setContraseña(int contraseña) {
-        this.contraseña = contraseña;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
-    public int getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 
