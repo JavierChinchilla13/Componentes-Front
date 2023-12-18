@@ -5,6 +5,7 @@
  */
 package com.cci.ulatina.controller;
 
+import com.cci.manage.AdminService;
 import com.cci.manage.EmpleadoService;
 import com.cci.manage.Empleados;
 import com.cci.manage.Vacaciones;
@@ -37,6 +38,7 @@ public class CollaboratorController implements Serializable {
 
     private Empleados em;
     private final EmpleadoService service = new EmpleadoService();
+    private final AdminService adminService = new AdminService();
     private Empleados selectedEmployee = new Empleados();
     private boolean esNuevo = false;
     Servicio test = new Servicio();
@@ -177,8 +179,14 @@ public class CollaboratorController implements Serializable {
         if (flag) {
 
             System.out.println("Estoy salvando al usuario");
-            this.service.insertar(test.em, this.selectedEmployee);
-            this.esNuevo = false;
+
+            if (this.selectedEmployee.getTipo().equals("Administrador")) {
+                this.adminService.insertar(test.em, this.selectedEmployee);
+                this.esNuevo = false;
+            } else {
+                this.service.insertar(test.em, this.selectedEmployee);
+                this.esNuevo = false;
+            }
             this.selectedEmployee = new Empleados();
 
             PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
@@ -333,7 +341,6 @@ public class CollaboratorController implements Serializable {
             this.selectedEmployee.setCumpleaños(new java.sql.Date(fireDate.getTime()));
         }
     }*/
-
     public java.util.Date getCalendarIngreso() {
         return (java.util.Date) this.selectedEmployee.getFechaIngreso();
     }
@@ -353,6 +360,7 @@ public class CollaboratorController implements Serializable {
             this.selectedEmployee.setFechaRetiro(new java.sql.Date(fireDate.getTime()));
         }
     }
+
     public void redireccionar(String ruta) {
         HttpServletRequest request;
         try {
@@ -361,8 +369,7 @@ public class CollaboratorController implements Serializable {
         } catch (Exception e) {
         }
     }
-    
-    
+
     public String idToStrStatus(int id) throws Exception {
 
         EmpleadoService serv = new EmpleadoService();
@@ -374,8 +381,8 @@ public class CollaboratorController implements Serializable {
 
         return result;
     }
-    
-    public int Vacaciones (int id) throws Exception {
+
+    public int Vacaciones(int id) throws Exception {
 
         test.startEntityManagerFactory();
         test.em = test.entityManagerFactory.createEntityManager();
@@ -431,12 +438,12 @@ public class CollaboratorController implements Serializable {
             System.out.println("+++++" + days);
             totalVacationDays += days;
         }
-        
+
         int days = v.calculateVacationDays(test.em, id);
 
-        localizado.setVacaciones(days-totalVacationDays);
+        localizado.setVacaciones(days - totalVacationDays);
         test.em.merge(localizado);
-        int totalVacaciones= days-totalVacationDays;
+        int totalVacaciones = days - totalVacationDays;
         //int dias = v.calculateVacationDays(test.em, 13);
         this.esNuevo = false;
         this.selectedEmployee = new Empleados();

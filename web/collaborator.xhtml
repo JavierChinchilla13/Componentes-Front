@@ -49,10 +49,6 @@
                     <p:column headerText="Apellido" sortBy="#{Employee.apellido}" filterBy="#{Employee.apellido}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.apellido}"/>
                     </p:column>
-
-                    <p:column headerText="Cumpleaños" sortBy="#{Employee.cumpleaños}" filterBy="#{Employee.cumpleaños}" filterMatchMode="contains">
-                        <h:outputText value="#{Employee.cumpleaños}"/>
-                    </p:column>
                     
                     <p:column headerText="Telefono" sortBy="#{Employee.telefono}" filterBy="#{Employee.telefono}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.telefono}"/>
@@ -60,10 +56,6 @@
                     
                     <p:column headerText="vacaciones" sortBy="#{Employee.vacaciones}" filterBy="#{Employee.vacaciones}" filterMatchMode="contains">
                         <h:outputText value="#{Employee.vacaciones}"/>
-                    </p:column>
-                    
-                    <p:column headerText="Direccion" sortBy="#{Employee.direccion}" filterBy="#{Employee.direccion}" filterMatchMode="contains">
-                        <h:outputText value="#{Employee.direccion}"/>
                     </p:column>
                     
                     <p:column headerText="Cedula" sortBy="#{Employee.cedula}" filterBy="#{Employee.cedula}" filterMatchMode="contains">
@@ -126,19 +118,12 @@
                 </p:dialog>
                 
                 
-                
-                
-                
+               
                 <p:dialog header="User detail" showEffect="fade" modal="true"
                           widgetVar="manageUserDialog1" responsive="true" resizable="true">
                     <p:outputPanel id="manage-user-content1" class="ui-fluid">
 
                         <p:outputPanel>
-                            
-                            <div class="p-field1">
-                                <p:outputLabel for="id">Id</p:outputLabel>
-                                <p:inputText id="id1" value="#{employeeController.selectedEmployee.id}"/>
-                            </div>
                             
                             <div class="p-field1">
                                 <p:outputLabel for="nombre">Nombre</p:outputLabel>
@@ -149,19 +134,9 @@
                                 <p:inputText id="apellido1" value="#{employeeController.selectedEmployee.apellido}"/>
                             </div>
                             
-                            <div class="field1 col-12 md:col-4">
-                                <p:outputLabel for="cumpleaños" value="Cumpleaños"/>
-                                <p:calendar id="cumpleaños1" value="#{employeeController.calendarCumple}"/>
-
-                            </div>
                             <div class="p-field1">
                                 <p:outputLabel for="telefono">Telefono</p:outputLabel>
                                 <p:inputText id="telefono1" value="#{employeeController.selectedEmployee.telefono}"/>
-                            </div>
-
-                            <div class="p-field1">
-                                <p:outputLabel for="direccion">Direccion</p:outputLabel>
-                                <p:inputText id="direccion1" value="#{employeeController.selectedEmployee.direccion}"/>
                             </div>
                             
                             <div class="p-field1">
@@ -239,19 +214,10 @@
                                 <p:inputText id="apellido" value="#{employeeController.selectedEmployee.apellido}"/>
                             </div>
                             
-                            <div class="field col-12 md:col-4">
-                                <p:outputLabel for="cumpleaños" value="Cumpleaños"/>
-                                <p:calendar id="cumpleaños" value="#{employeeController.calendarCumple}"/>
 
-                            </div>
                             <div class="p-field">
                                 <p:outputLabel for="telefono">Telefono</p:outputLabel>
                                 <p:inputText id="telefono" value="#{employeeController.selectedEmployee.telefono}"/>
-                            </div>
-
-                            <div class="p-field">
-                                <p:outputLabel for="direccion">Direccion</p:outputLabel>
-                                <p:inputText id="direccion" value="#{employeeController.selectedEmployee.direccion}"/>
                             </div>
                             
                             <div class="p-field">
