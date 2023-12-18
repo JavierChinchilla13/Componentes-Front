@@ -47,10 +47,11 @@ public class LoginController {
             EmpleadoService servEmp = new EmpleadoService();
 
             test.startEntityManagerFactory(); // Inicia el EntityManager
-            String permisos = servEmp.Credenciales(test.em, this.correo, this.clave);
+            Empleados em = new Empleados();
+             em = servEmp.Credenciales(test.em, this.correo, this.clave);
             test.stopEntityManagerFactory(); // Detiene el EntityManager después de su uso
 
-            boolean flag = true;
+         /*   boolean flag = true;
             if (this.getCorreo() == null || this.getCorreo().equals("")) {
                 //ERROR
                 FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "The Email is empty"));
@@ -60,12 +61,12 @@ public class LoginController {
                 //ERROR
                 FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "The password is empty"));
                 flag = false;
-            }
+            }*/
 
             // Aquí puedes manejar el valor de 'permisos' según tu lógica de frontend
-            if (permisos.equals(false)) {
+            if (em.getTipo().equals("null")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
-            } else if (permisos.equals("Administrador")) {
+            } else if (em.getTipo().equals("Admin")) {
                 this.redirect("/faces/collaborator.xhtml");
             } else {
                 this.redirect("/faces/projects.xhtml");
