@@ -73,13 +73,13 @@ public class VacacionController {
 
 
     
-    public List<Vacaciones> getVacaciones() {
+    public List<Vacaciones> getVacaciones(int id) {
         try {
 
             test.startEntityManagerFactory();
             
              
-            Empleados localizado = test.em.find(Empleados.class, new Integer(13));
+            Empleados localizado = test.em.find(Empleados.class, id);
         if (localizado != null) {
             System.out.println("Se localizo el empleado: " + localizado.getNombre());
         } else {
@@ -108,11 +108,35 @@ public class VacacionController {
         return list;
     }
     
+    public List<Vacaciones> getVacacionesAdmin() {
+        try {
+
+            test.startEntityManagerFactory();
+
+            System.out.println("-----------------------");
+            //testers.findPK1(p);
+            for (Vacaciones pro : sVService.listar(test.em)) {
+                System.out.println("Nombre: " + pro.getIdVacaciones());
+            }
+            test.stopEntityManagerFactory();
+            System.out.println("Done");
+
+            return sVService.listar(test.em);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Error in retriving th list of employees"));
+
+        }
+        List<Vacaciones> list = new ArrayList<>();
+        return list;
+    }
     
-    public void saveVacacion() throws Exception {
+    
+    public void saveVacacion(int id) throws Exception {
         test.startEntityManagerFactory();
         
-         Empleados localizado = test.em.find(Empleados.class, new Integer(13));
+         Empleados localizado = test.em.find(Empleados.class, id);
         if (localizado != null) {
             System.out.println("Se localizo el empleado: " + localizado.getNombre());
         } else {

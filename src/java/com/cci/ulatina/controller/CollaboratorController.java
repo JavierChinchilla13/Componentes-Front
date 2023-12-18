@@ -41,6 +41,8 @@ public class CollaboratorController implements Serializable {
     private final AdminService adminService = new AdminService();
     private Empleados selectedEmployee = new Empleados();
     private boolean esNuevo = false;
+    
+
     Servicio test = new Servicio();
 
     public void openNew() {
@@ -79,6 +81,10 @@ public class CollaboratorController implements Serializable {
     public void setTest(Servicio test) {
         this.test = test;
     }
+
+
+   
+    
 
     public List<Empleados> getEmployees() {
         try {
@@ -422,6 +428,7 @@ public class CollaboratorController implements Serializable {
         Empleados localizado = test.em.find(Empleados.class, new Integer(id));
         if (localizado != null) {
             System.out.println("Se localizo el empleado: " + localizado.getNombre());
+            
         } else {
             System.out.println("No se encontro empleado");
 

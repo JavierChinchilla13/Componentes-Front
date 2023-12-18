@@ -31,8 +31,39 @@ public class LoginController {
     private String tipo;
     private Date cumpleaños;
     private String dirección;
+    private boolean isAdmin = false;
+    public int id = 0;
+
+    
+    private boolean isEmployee = false;
 
     private Empleados selectedUsuario;
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isIsEmployee() {
+        return isEmployee;
+    }
+
+    public void setIsEmployee(boolean isEmployee) {
+        this.isEmployee = isEmployee;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public LoginController() {
     }
@@ -50,6 +81,9 @@ public class LoginController {
             Empleados em = new Empleados();
              em = servEmp.Credenciales(test.em, this.correo, this.clave);
             test.stopEntityManagerFactory(); // Detiene el EntityManager después de su uso
+            
+            setIsAdmin(false);
+            setIsEmployee(false);
 
          /*   boolean flag = true;
             if (this.getCorreo() == null || this.getCorreo().equals("")) {
@@ -66,9 +100,18 @@ public class LoginController {
             // Aquí puedes manejar el valor de 'permisos' según tu lógica de frontend
             if (em.getTipo().equals("null")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
+                
             } else if (em.getTipo().equals("Admin")) {
+                setIsAdmin(true);
+               setId(em.getId());
+                System.out.println(em.getId());
+                
                 this.redirect("/faces/collaborator.xhtml");
+                
             } else {
+                setId(em.getId());
+                System.out.println(em.getId());
+                setIsEmployee(true);
                 this.redirect("/faces/projects.xhtml");
             }
         } catch (Exception e) {
