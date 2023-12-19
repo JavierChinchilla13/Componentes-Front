@@ -8,6 +8,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <h3>Welcome to ManageP-U </h3>
         <h:form id="form">
         <p:growl id="message" showDetail="true"/>
         <div class="card">
@@ -18,7 +19,7 @@
                     <p:menuitem value="Projects" icon="pi pi-fw pi-calendar" action="#{employeeController.redireccionar('/faces/projectCollabs.xhtml')}">
                         <f:param name="1" value="1"/>
                     </p:menuitem>
-                    <p:menuitem value="Vacaciones" icon="pi pi-fw pi-calendar" outcome="vacaciones">
+                    <p:menuitem value="Vacaciones" icon="pi pi-fw pi-calendar" outcome="vacacionesCollabs">
                         <f:param name="2" value="2"/>
                     </p:menuitem>
                      <p:menuitem value="LogOut" icon="pi pi-fw pi-calendar" outcome="index">
