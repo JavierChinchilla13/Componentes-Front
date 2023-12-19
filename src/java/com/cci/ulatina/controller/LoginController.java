@@ -10,6 +10,8 @@ import javax.faces.bean.SessionScoped;
 import com.cci.manage.*;
 import com.cci.ulatina.servicio.Servicio;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -33,6 +35,9 @@ public class LoginController {
     private String dirección;
     private boolean isAdmin = false;
     public int id = 0;
+    EmpleadoService se = new EmpleadoService();
+    Servicio test = new Servicio();
+    ProyectoServicio service = new ProyectoServicio();
 
     
     private boolean isEmployee = false;
@@ -112,7 +117,7 @@ public class LoginController {
                 setId(em.getId());
                 System.out.println(em.getId());
                 setIsEmployee(true);
-                this.redirect("/faces/projects.xhtml");
+                this.redirect("/faces/projectCollabs.xhtml");
             }
         } catch (Exception e) {
             e.printStackTrace(); // Manejo adecuado del error según la lógica de tu aplicación
@@ -120,13 +125,35 @@ public class LoginController {
     }
 
     public void saveTrabajador() throws Exception {
-        Servicio test = new Servicio();
+        
         EmpleadoService u = new EmpleadoService();
 
         test.startEntityManagerFactory();
         u.insertar(test.em, selectedUsuario);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Trabajador agregado"));
 
+    }
+    public List<Projecto> getProject() {
+        try {
+            
+            
+            test.startEntityManagerFactory();
+            Empleados emp = se.getUserByIdWithPlainQuery(test.em,this.correo , this.clave);
+
+            
+            System.out.println("Done" + emp.getId());
+
+            List<Projecto> list =  service.proyectosEspecificos(test.em, emp.getId());
+            test.stopEntityManagerFactory();
+            return list;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Error in retriving th list of employees"));
+
+        }
+        List<Projecto> list = new ArrayList<>();
+        return list;
     }
 
     public String getCorreo() {

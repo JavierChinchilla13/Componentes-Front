@@ -37,6 +37,7 @@ public class ProjectControler {
     private EmpleadoService se = new EmpleadoService();
     private String rol;
     private int idprol;
+    
     public DetallesProyecto getSelectedDetalle() {
         return selectedDetalle;
     }
@@ -239,6 +240,8 @@ public class ProjectControler {
 
         return colaboradores;
     }
+     
+     
      
     
     
