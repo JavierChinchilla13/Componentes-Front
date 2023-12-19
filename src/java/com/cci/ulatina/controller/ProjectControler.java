@@ -5,6 +5,8 @@
  */
 package com.cci.ulatina.controller;
 
+import com.cci.manage.DetallesProyecto;
+import com.cci.manage.DetallesProyectoServicio;
 import com.cci.manage.EmpleadoService;
 import com.cci.manage.Empleados;
 import com.cci.manage.ProyectoServicio;
@@ -31,6 +33,27 @@ public class ProjectControler {
     private Projecto selectedProject = new Projecto();
     private boolean esNuevo = false;
     Servicio test = new Servicio();
+    private DetallesProyecto selectedDetalle = new DetallesProyecto();
+    private EmpleadoService se = new EmpleadoService();
+    private String rol;
+
+    public DetallesProyecto getSelectedDetalle() {
+        return selectedDetalle;
+    }
+
+    public void setSelectedDetalle(DetallesProyecto selectedDetalle) {
+        this.selectedDetalle = selectedDetalle;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+    
+    
 
     public Projecto getEm() {
         return em;
@@ -169,6 +192,50 @@ public class ProjectControler {
         //test.em.getTransaction().commit();
         test.stopEntityManagerFactory();
         System.out.println("YAAAA");
+    }
+    
+    public void agregarColab(Empleados es) throws Exception {
+        test.startEntityManagerFactory();
+        int idEmp = es.getId();
+       System.out.println(es.getId());
+       DetallesProyectoServicio servicioDetalle = new DetallesProyectoServicio();
+       
+        test.stopEntityManagerFactory();
+        try {
+             servicioDetalle.insert(test.em, idEmp, this.selectedProject.getId(), "Recursos Humanos");
+             
+
+        } catch (Exception ex) {
+            // Maneja el error si la inserción falla
+            ex.printStackTrace();
+        }
+
+    }
+    
+     public List<Empleados> getColaboradores() {
+        List<Empleados> colaboradores = null;
+
+        try {
+            test.startEntityManagerFactory();
+
+            // Llamar al método de tu servicio para obtener empleados por permiso
+            colaboradores = se.obtenerEmpleadosPorPermiso(test.em, "Colaborador");
+
+            test.stopEntityManagerFactory();
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al obtener colaboradores", "Ha ocurrido un error al obtener la lista de colaboradores"));
+        }
+
+        if (colaboradores == null) {
+            colaboradores = new ArrayList<>(); // Manejar el caso de que no se obtengan colaboradores
+        }
+
+        return colaboradores;
+    }
+     
+    public void idPr(Projecto pr){
+        this.selectedProject = pr;
+        
     }
     
 
