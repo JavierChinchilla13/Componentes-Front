@@ -220,9 +220,9 @@ public class VacacionController {
                                                  
 			}
                         
-        if ("Aprovado".equals(est)) {
+        if ("Aprobado".equals(est)) {
             //ERROR)
-            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Vacaciones ya fueron aprovadas"));
+            FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Vacaciones ya fueron aprobadas"));
             flag = false;
         }
         if ("Denegado".equals(est)) {

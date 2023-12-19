@@ -12,6 +12,21 @@
         <p:growl id="message" showDetail="true"/>
         <div class="card">
             
+           <p:tabMenu activeIndex="#{param.i}">
+
+                    
+                    <p:menuitem value="Projects" icon="pi pi-fw pi-calendar" action="#{employeeController.redireccionar('/faces/projectCollabs.xhtml')}">
+                        <f:param name="1" value="1"/>
+                    </p:menuitem>
+                    <p:menuitem value="Vacaciones" icon="pi pi-fw pi-calendar" outcome="vacaciones">
+                        <f:param name="2" value="2"/>
+                    </p:menuitem>
+                     <p:menuitem value="LogOut" icon="pi pi-fw pi-calendar" outcome="index">
+                        <f:param name="3" value="3"/>
+                    </p:menuitem>
+
+                </p:tabMenu>
+            
 
             <p:dataTable id="Project" var="Project" value="#{loginController.project}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
                          {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
