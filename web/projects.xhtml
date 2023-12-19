@@ -56,9 +56,6 @@
                     <p:column headerText="ID" sortBy="#{Project.id}" filterBy="#{Project.id}" filterMatchMode="contains">
                         <h:outputText value="#{Project.id}"/>
                     </p:column>
-                    <p:column headerText="ID" sortBy="#{Project.id}" filterBy="#{Project.id}" filterMatchMode="contains">
-                        <h:outputText value="#{Project.estado}"/>
-                    </p:column>
 
                     <p:column headerText="Options">
                         <p:commandButton icon="pi pi-eye" update=":form:manage-user-content2" 
@@ -67,6 +64,14 @@
                             <f:setPropertyActionListener value="#{Project}" target="#{projectController.selectedProject}"/>
                             <p:resetInput target=":form:manage-user-content2"/>
                         </p:commandButton>
+                        
+                        <p:commandButton icon="pi pi-plus" actionListener="#{projectController.idPr(Project)}"
+                                         update=":form:manage-user-content3" oncomplete="PF('manageUserDialog3').show()"
+                                         styleClass="rounded-button ui-button-info">
+                            <p:resetInput target=":form:manage-user-content3"/>
+                        </p:commandButton>
+                        
+                      
                     </p:column>
 
 
@@ -169,6 +174,101 @@
 
                         <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageUserDialog2').hide()" actionListener="#{projectController.setEsNuevo(false)}"
                                          style="margin: .25rem" class="ui-button-secondary"/>
+                    </f:facet>
+
+                </p:dialog>
+                
+                <p:dialog header="Agregar usuarios al Proyecto" widgetVar="manageUserDialog3" 
+                          modal="true" resizable="false">
+                    <!-- Contenido actualizado por el botón -->
+                    <p:outputPanel id="manage-user-content3">
+                        <p:dataTable var="colaborador" value="#{projectController.colaboradores}" emptyMessage="No hay colaboradores">
+                            <!-- Define tus columnas según la estructura de Empleado -->
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{colaborador.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Cedula">
+                                <h:outputText value="#{colaborador.cedula}" />
+                            </p:column>
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{colaborador.correo}" />
+                            </p:column> 
+                            
+                            <p:column headerText="Rol">
+                                <p:selectOneMenu id="option" value="#{projectController.rol}">
+                                    <f:selectItem itemLabel="Ingeniero" itemValue="Ingeniero"/>
+                                    <f:selectItem itemLabel="Recursos Humanos" itemValue="Recursos Humanos"/>
+                                    <f:selectItem itemLabel="Contador" itemValue="Contador"/>
+                                </p:selectOneMenu>
+                            </p:column> 
+                             
+
+                            <p:column headerText="Acciones">
+                                <p:commandButton icon="pi pi-plus" actionListener="#{projectController.agregarColab(colaborador)}"
+
+                                                 styleClass="rounded-button ui-button-info">
+
+                                </p:commandButton>
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </p:outputPanel>
+                </p:dialog>
+
+
+                <p:dialog header="Lista de Colaboradores asigandos al Proyecto" widgetVar="manageUserDialog4" 
+                          modal="true" resizable="false">
+                    <!-- Contenido actualizado por el botón -->
+                    <p:outputPanel id="manage-user-content4">
+                        <p:dataTable var="colaborador" value="#{projectController.colaboradores}" emptyMessage="No hay colaboradores">
+                            <!-- Define tus columnas según la estructura de Empleado -->
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{colaborador.nombre}" />
+                            </p:column>
+
+                            <p:column headerText="Cedula">
+                                <h:outputText value="#{colaborador.cedula}" />
+                            </p:column>
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{colaborador.correo}" />
+                            </p:column>
+
+                            <p:column headerText="Acciones">
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                                 style="background-color: red; color: white;" >
+                                </p:commandButton>
+
+                            </p:column>
+                        </p:dataTable>
+                    </p:outputPanel>
+                </p:dialog>
+
+
+                <p:dialog header="Agregar Rol" showEffect="fade" modal="true"
+                          widgetVar="manageUserDialog5" responsive="true" resizable="true">
+                    <p:outputPanel id="manage-user-content5" class="ui-fluid">
+
+                        <p:outputPanel>
+
+                            <div class="p-field1">
+                                <p:outputLabel for="rolDP">Rol</p:outputLabel>
+                                <p:inputText id="rolDP" value="#{projectController.selectedDetalle.rol}"/>
+                            </div>
+
+                        </p:outputPanel>
+
+                    </p:outputPanel>
+                    <f:facet name="footer">
+
+
+                        <p:commandButton icon="pi pi-plus" actionListener="#{projectController.agregarColab(colaborador)}"
+                                         update=":form:manage-user-content5" 
+                                         styleClass="rounded-button ui-button-info">
+                            <p:resetInput target=":form:manage-user-content5"/>
+                        </p:commandButton>
+
                     </f:facet>
 
                 </p:dialog>
