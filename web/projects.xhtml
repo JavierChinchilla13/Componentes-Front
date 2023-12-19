@@ -58,14 +58,14 @@
                     </p:column>
 
                     <p:column headerText="Options">
-                        <p:commandButton icon="pi pi-eye" update=":form:manage-user-content2" 
+                        <p:commandButton icon="pi pi-pencil" update=":form:manage-user-content2" 
                                          oncomplete="PF('userOptionsDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-info" process="@this">
                             <f:setPropertyActionListener value="#{Project}" target="#{projectController.selectedProject}"/>
                             <p:resetInput target=":form:manage-user-content2"/>
                         </p:commandButton>
                         
-                        <p:commandButton icon="pi pi-plus" actionListener="#{projectController.idPr(Project)}"
+                        <p:commandButton icon="pi pi-user-plus" actionListener="#{projectController.idPr(Project)}"
                                          update=":form:manage-user-content3" oncomplete="PF('manageUserDialog3').show()"
                                          styleClass="rounded-button ui-button-info">
                             <p:resetInput target=":form:manage-user-content3"/>
@@ -205,9 +205,9 @@
                              
 
                             <p:column headerText="Acciones">
-                                <p:commandButton icon="pi pi-plus" actionListener="#{projectController.agregarColab(colaborador)}"
+                                <p:commandButton value="Add" icon="pi pi-check" actionListener="#{projectController.agregarColab(colaborador)}"
 
-                                                 styleClass="rounded-button ui-button-info">
+                                                 styleClass="edit-button rounded-button ui-button-info" process="@this">
 
                                 </p:commandButton>
 
