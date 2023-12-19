@@ -83,11 +83,18 @@
                     
                     
                     <p:column headerText="Options">
-                        <p:commandButton icon="pi pi-eye" update=":form:manage-user-content2" 
+                        <p:commandButton icon="pi pi-user-edit" update=":form:manage-user-content2" 
                                          oncomplete="PF('userOptionsDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-info" process="@this">
                             <f:setPropertyActionListener value="#{Employee}" target="#{employeeController.selectedEmployee}"/>
                             <p:resetInput target=":form:manage-user-content2"/>
+                        </p:commandButton>
+                        
+                        <p:commandButton icon="pi pi-id-card" update=":form:manage-user-content3" 
+                                         oncomplete="PF('manageUserDialog3').show()"
+                                         styleClass="edit-button rounded-button ui-button-info" process="@this">
+                            <f:setPropertyActionListener value="#{Employee}" target="#{employeeController.selectedEmployee}"/>
+                            <p:resetInput target=":form:manage-user-content3"/>
                         </p:commandButton>
                     </p:column>
                     
@@ -280,6 +287,53 @@
 
                 </p:dialog>
 
+                
+                <p:dialog header="Detalles del Usuario" showEffect="fade" modal="true"
+                          widgetVar="manageUserDialog3" responsive="true" resizable="true">
+                    <p:outputPanel id="manage-user-content3" class="ui-fluid">
+
+                        <p:outputPanel>
+                            <div class="p-field3">
+                                <p:outputLabel for="id">Id</p:outputLabel>
+                                <p:inputText id="id3" value="#{employeeController.selectedEmployee.id}" disabled="true" />
+                            </div>
+
+                            <div class="p-field3">
+                                <p:outputLabel for="nombre">Nombre</p:outputLabel>
+                                <p:inputText id="nombre3" value="#{employeeController.selectedEmployee.nombre}" disabled="true" />
+                            </div>
+                            <div class="p-field3">
+                                <p:outputLabel for="apellido">Apellido</p:outputLabel>
+                                <p:inputText id="apellido3" value="#{employeeController.selectedEmployee.apellido}" disabled="true" />
+                            </div>
+
+                            <div class="p-field3">
+                                <p:outputLabel for="telefono">Telefono</p:outputLabel>
+                                <p:inputText id="telefono3" value="#{employeeController.selectedEmployee.telefono}" disabled="true" />
+                            </div>
+
+                            <div class="p-field3">
+                                <p:outputLabel for="cedula">Cedula</p:outputLabel>
+                                <p:inputText id="cedula3" value="#{employeeController.selectedEmployee.cedula}" disabled="true" />
+                            </div>
+
+                            <div class="p-field3">
+                                <p:outputLabel for="correo">Correo</p:outputLabel>
+                                <p:inputText id="correo3" value="#{employeeController.selectedEmployee.correo}" disabled="true" />
+                            </div>
+
+                            <div class="field3 col-12 md:col-4">
+                                <p:outputLabel for="fechaIngreso" value="Fecha de ingreso"/>
+                                <p:calendar id="fechaIngreso3" value="#{employeeController.selectedEmployee.fechaIngreso}" disabled="true" />
+
+                            </div>
+
+
+                        </p:outputPanel>
+
+                    </p:outputPanel>
+
+                </p:dialog>
                 
 
 
