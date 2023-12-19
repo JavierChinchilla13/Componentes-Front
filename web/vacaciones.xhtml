@@ -48,10 +48,6 @@
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Lista Vacaciones </f:facet>
 
-                    <p:column headerText="id" sortBy="#{Vacacion2.idVacaciones}" filterBy="#{Vacacion2.idVacaciones}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion2.idVacaciones}"/>
-                    </p:column>
-                    
                     <p:column headerText="Incio" sortBy="#{Vacacion2.fech_Inicio}" filterBy="#{Vacacion2.fech_Inicio}" filterMatchMode="contains">
                         <h:outputText value="#{Vacacion2.fech_Inicio}"/>
                     </p:column>
@@ -90,10 +86,7 @@
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Lista Vacaciones </f:facet>
 
-                    <p:column headerText="id" sortBy="#{Vacacion.idVacaciones}" filterBy="#{Vacacion.idVacaciones}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion.idVacaciones}"/>
-                    </p:column>
-                    
+                                    
                     <p:column headerText="Incio" sortBy="#{Vacacion.fech_Inicio}" filterBy="#{Vacacion.fech_Inicio}" filterMatchMode="contains">
                         <h:outputText value="#{Vacacion.fech_Inicio}"/>
                     </p:column>
@@ -134,12 +127,6 @@
                     <p:outputPanel id="manage-user-content" class="ui-fluid">
 
                         <p:outputPanel>
-
-                            <div class="p-field1">
-                                <p:outputLabel for="id">Id</p:outputLabel>
-                                <p:inputText id="id" value="#{vacacionController.vacacionSelected.idVacaciones}"/>
-                            </div>
-                            
 
                             <div class="field1 col-12 md:col-4">
                                 <p:outputLabel for="fechaInicio1" value="Fecha de salida"/>
