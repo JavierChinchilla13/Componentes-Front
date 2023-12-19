@@ -36,7 +36,7 @@ public class ProjectControler {
     private DetallesProyecto selectedDetalle = new DetallesProyecto();
     private EmpleadoService se = new EmpleadoService();
     private String rol;
-
+    private int idprol;
     public DetallesProyecto getSelectedDetalle() {
         return selectedDetalle;
     }
@@ -91,6 +91,12 @@ public class ProjectControler {
         this.esNuevo = true;
         this.selectedProject = new Projecto();
     }
+    
+    public void idPr(Projecto pr){
+        idprol = pr.getId();
+        
+        
+    }
 
     public void saveProject() throws Exception {
         test.startEntityManagerFactory();
@@ -106,6 +112,7 @@ public class ProjectControler {
             
         }
         if (flag) {
+                idprol = this.selectedProject.getId();
 
                 System.out.println("Estoy salvando al projecto");
                 this.service.insertar(test.em, this.selectedProject);
@@ -197,12 +204,12 @@ public class ProjectControler {
     public void agregarColab(Empleados es) throws Exception {
         test.startEntityManagerFactory();
         int idEmp = es.getId();
-       System.out.println(es.getId());
+       
        DetallesProyectoServicio servicioDetalle = new DetallesProyectoServicio();
        
         test.stopEntityManagerFactory();
         try {
-             servicioDetalle.insert(test.em, idEmp, this.selectedProject.getId(), "Recursos Humanos");
+             servicioDetalle.insert(test.em, idEmp, idprol, "Recursos Humanos");
              
 
         } catch (Exception ex) {
@@ -233,10 +240,7 @@ public class ProjectControler {
         return colaboradores;
     }
      
-    public void idPr(Projecto pr){
-        this.selectedProject = pr;
-        
-    }
+    
     
 
 }
