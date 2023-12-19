@@ -258,21 +258,21 @@ public class VacacionController {
     }
 
 
-    public java.util.Date getCalendarInicio() {
+    public java.util.Date getCalendarInicio1() {
         return (java.util.Date) this.vacacionSelected.getFech_Inicio();
     }
 
-    public void setCalendarInicio(java.util.Date fireDate) {
+    public void setCalendarInicio1(java.util.Date fireDate) {
         if (fireDate != null) {
             this.vacacionSelected.setFech_Inicio(new java.sql.Date(fireDate.getTime()));
         }
     }
     
-    public java.util.Date getCalendarFinal() {
+    public java.util.Date getCalendarFinal1() {
         return (java.util.Date) this.vacacionSelected.getFech_Final();
     }
 
-    public void setCalendarFinal(java.util.Date fireDate) {
+    public void setCalendarFinal1(java.util.Date fireDate) {
         if (fireDate != null) {
             this.vacacionSelected.setFech_Final(new java.sql.Date(fireDate.getTime()));
         }

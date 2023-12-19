@@ -101,7 +101,7 @@ public class LoginController {
             if (em.getTipo().equals("null")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Credenciales incorrectas"));
                 
-            } else if (em.getTipo().equals("Admin")) {
+            } else if (em.getTipo().equals("Administrador")) {
                 setIsAdmin(true);
                setId(em.getId());
                 System.out.println(em.getId());

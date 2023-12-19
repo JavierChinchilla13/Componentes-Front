@@ -21,10 +21,13 @@
                         <f:param name="i" value="1"/>
                     </p:menuitem>
                     <p:menuitem value="Projects" icon="pi pi-fw pi-calendar" action="#{employeeController.redireccionar('/faces/projects.xhtml')}">
-                        <f:param name="i" value="2"/>
+                        <f:param name="2" value="2"/>
                     </p:menuitem>
                     <p:menuitem value="Vacaciones" icon="pi pi-fw pi-calendar" outcome="vacaciones">
-                        <f:param name="i" value="2"/>
+                        <f:param name="3" value="3"/>
+                    </p:menuitem>
+                     <p:menuitem value="LogOut" icon="pi pi-fw pi-calendar" outcome="index">
+                        <f:param name="4" value="4"/>
                     </p:menuitem>
 
                 </p:tabMenu>
@@ -40,23 +43,23 @@
                 </p:commandButton>
 
 
-                <p:dataTable id="Vacaciones" var="Vacacion" value="#{vacacionController.getVacaciones(loginController.id)}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
+                <p:dataTable id="Vacaciones2" var="Vacacion2" rendered="#{loginController.isEmployee}" value="#{vacacionController.getVacaciones(loginController.id)}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
                              {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Lista Vacaciones </f:facet>
 
-                    <p:column headerText="id" sortBy="#{Vacacion.idVacaciones}" filterBy="#{Vacacion.idVacaciones}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion.idVacaciones}"/>
+                    <p:column headerText="id" sortBy="#{Vacacion2.idVacaciones}" filterBy="#{Vacacion2.idVacaciones}" filterMatchMode="contains">
+                        <h:outputText value="#{Vacacion2.idVacaciones}"/>
                     </p:column>
                     
-                    <p:column headerText="Incio" sortBy="#{Vacacion.fech_Inicio}" filterBy="#{Vacacion.fech_Inicio}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion.fech_Inicio}"/>
+                    <p:column headerText="Incio" sortBy="#{Vacacion2.fech_Inicio}" filterBy="#{Vacacion2.fech_Inicio}" filterMatchMode="contains">
+                        <h:outputText value="#{Vacacion2.fech_Inicio}"/>
                     </p:column>
-                    <p:column headerText="Final" sortBy="#{Vacacion.fech_Final}" filterBy="#{Vacacion.fech_Final}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion.fech_Final}"/>
+                    <p:column headerText="Final" sortBy="#{Vacacion2.fech_Final}" filterBy="#{Vacacion2.fech_Final}" filterMatchMode="contains">
+                        <h:outputText value="#{Vacacion2.fech_Final}"/>
                     </p:column>
-                    <p:column headerText="Estado" sortBy="#{Vacacion.estado}" filterBy="#{Vacacion.estado}" filterMatchMode="contains">
-                        <h:outputText value="#{Vacacion.estado}"/>
+                    <p:column headerText="Estado" sortBy="#{Vacacion2.estado}" filterBy="#{Vacacion2.estado}" filterMatchMode="contains">
+                        <h:outputText value="#{Vacacion2.estado}"/>
                     </p:column>
                     
                     
@@ -64,7 +67,7 @@
                         <p:commandButton icon="pi pi-pencil" update=":form:approve-deny-vacation" rendered="#{loginController.isAdmin}"
                                          oncomplete="PF('approveDenyVacationDialog').show()"
                                          styleClass="edit-button rounded-button ui-button-success" process="@this">
-                            <f:setPropertyActionListener value="#{Vacacion}" target="#{vacacionController.vacacionSelected}"/>
+                            <f:setPropertyActionListener value="#{Vacacion2}" target="#{vacacionController.vacacionSelected}"/>
                             <p:resetInput target=":form:approve-deny-vacation"/>
                         </p:commandButton>
                     </p:column>
@@ -72,7 +75,7 @@
                      <p:column>
                          <p:commandButton icon="pi pi-times" update="form" styleClass="rounded-button ui-button-danger"
                                              value="Cancelar" style="margin: .25rem"
-                                             actionListener="#{vacacionController.removeVacacion(Vacacion.idVacaciones)}">
+                                             actionListener="#{vacacionController.removeVacacion(Vacacion2.idVacaciones)}">
                                 
                             </p:commandButton>
                     </p:column>
@@ -82,7 +85,7 @@
                 </p:dataTable>
                 
                 
-                <p:dataTable id="Vacaciones" var="Vacacion2" rendered="#{loginController.isAdmin}" value="#{vacacionController.vacacionesAdmin}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
+                <p:dataTable id="Vacaciones" var="Vacacion" rendered="#{loginController.isAdmin}" value="#{vacacionController.vacacionesAdmin}" paginator="true" rows="5" paginatorTemplate="{CurrentPageReport} 
                              {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="3,5,10,20,30,40,50" emptyMessage="No register users"  style="background-color: blue" >
                     <f:facet name="header"> Lista Vacaciones </f:facet>
@@ -139,13 +142,13 @@
                             
 
                             <div class="field1 col-12 md:col-4">
-                                <p:outputLabel for="fechaInicio" value="Fecha de salida"/>
-                                <p:calendar id="fechaInicio" value="#{vacacionController.calendarInicio}"/>
+                                <p:outputLabel for="fechaInicio1" value="Fecha de salida"/>
+                                <p:calendar id="fechaInicio1" value="#{vacacionController.calendarInicio1}"/>
 
                             </div>
                             <div class="field1 col-12 md:col-4">
-                                <p:outputLabel for="fechaFinal" value="Fecha de regreso"/>
-                                <p:calendar id="fechaFinal" value="#{vacacionController.calendarFinal}"/>
+                                <p:outputLabel for="fechaFinal1" value="Fecha de regreso"/>
+                                <p:calendar id="fechaFinal1" value="#{vacacionController.calendarFinal1}"/>
 
                             </div>
                             
